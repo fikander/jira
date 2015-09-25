@@ -1383,6 +1383,23 @@ class JIRA(object):
         """
         return self._find_for_resource(Project, id)
 
+    @translate_resource_args
+    def project_statuses(self, project):
+        """
+        Get all issue types with valid status values for a project.
+
+        :param id: ID or key of the project to get statuses for
+        """
+        r_json = self._get_json('project/' + project + '/statuses')
+        statuses = []
+        status_ids = {}
+        for raw_issuetype_json in r_json:
+            for raw_stat_json in raw_issuetype_json['statuses']:
+                if raw_stat_json['id'] not in status_ids:
+                    status_ids[raw_stat_json['id']] = True
+                    statuses += [Status(self._options, self._session, raw_stat_json)]
+        return statuses
+
     # non-resource
     @translate_resource_args
     def project_avatars(self, project):
