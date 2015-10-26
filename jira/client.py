@@ -161,6 +161,7 @@ class JIRA(object):
 
     JIRA_BASE_URL = '{server}/rest/api/{rest_api_version}/{path}'
     AGILE_BASE_URL = '{server}/rest/greenhopper/1.0/{path}'
+    JIRA_SOFTWARE_BASE_URL = '{server}/rest/agile/1.0/{path}'
 
     def __init__(self, server=None, options=None, basic_auth=None, oauth=None, jwt=None,
                  validate=False, get_server_info=True, async=False, logging=True, max_retries=3):
@@ -2815,6 +2816,17 @@ class JIRA(object):
         url = self._get_url('rank', base=self.AGILE_BASE_URL)
         r = self._session.put(
             url, data=json.dumps(data))
+
+
+    # JIRA Software - agile boards specific methods
+    def board_configuration(self, board_id):
+        """
+        Get configuration of the rapid board.
+
+        :param board_id: ID or key of the board to get configuration for
+        """
+        r_json = self._get_json('board/' + board_id + '/configuration', base=self.JIRA_SOFTWARE_BASE_URL)
+        return r_json
 
 
 class GreenHopper(JIRA):
