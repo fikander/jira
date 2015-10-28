@@ -2828,6 +2828,15 @@ class JIRA(object):
         r_json = self._get_json('board/' + str(board_id) + '/configuration', base=self.JIRA_SOFTWARE_BASE_URL)
         return r_json
 
+    def board(self, board_id):
+        """
+        Get configuration of the rapid board.
+
+        :param board_id: ID or key of the board to get configuration for
+        """
+        r_json = self._get_json('board/' + str(board_id), base=self.JIRA_SOFTWARE_BASE_URL)
+        return r_json
+
 
 class GreenHopper(JIRA):
 
