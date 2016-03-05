@@ -24,7 +24,7 @@ warnings.simplefilter('ignore', UserWarning)
 
 
 def _is_ordereddict_needed():
-    ''' Check if `ordereddict` package really needed '''
+    """ Check if `ordereddict` package really needed """
     try:
         from collections import OrderedDict
         return False
@@ -40,9 +40,8 @@ class PyTest(TestCommand):
         TestCommand.initialize_options(self)
         self.pytest_args = []
 
-        FORMAT = '%(levelname)-10s %(message)s'
-        logging.basicConfig(format=FORMAT)
-        logging.getLogger().setLevel(logging.INFO)
+        logging.basicConfig(format='%(levelname)-10s %(message)s')
+        logging.getLogger("jira").setLevel(logging.INFO)
 
         # if we have pytest-cache module we enable the test failures first mode
         try:
@@ -76,8 +75,8 @@ class PyTest(TestCommand):
                 "python -m autopep8 -r --in-place jira/ tests/ examples/",
                 shell=True)
         except subprocess.CalledProcessError:
-            logging.getLogger().warn('autopep8 is not installed so '
-                                     'it will not be run')
+            logging.warning('autopep8 is not installed so '
+                        'it will not be run')
         # import here, cause outside the eggs aren't loaded
         import pytest
         errno = pytest.main(self.pytest_args)
@@ -151,7 +150,6 @@ setup(
                       'tlslite>=0.4.4',
                       'six>=1.9.0',
                       'requests_toolbelt'] + (['ordereddict'] if _is_ordereddict_needed() else []),
-    setup_requires=['pytest', ],
     tests_require=['pytest', 'tlslite>=0.4.4', 'requests>=2.6.0',
                    'setuptools', 'pep8', 'autopep8', 'sphinx', 'sphinx_rtd_theme', 'six>=1.9.0',
                    'pytest-cov', 'pytest-pep8', 'pytest-instafail',
@@ -180,21 +178,19 @@ setup(
     keywords='jira atlassian rest api',
 
     classifiers=[
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.5',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
         'Development Status :: 5 - Production/Stable',
         'Environment :: Other Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
-        'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 )

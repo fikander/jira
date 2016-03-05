@@ -48,39 +48,40 @@ Source packages are also available at PyPI:
 Dependencies
 ============
 
+
 Python
-^^^^^^
+------
 Python 2.7 and Python 3.x are both supported.
 
 Requests
-^^^^^^^^
+--------
 Kenneth Reitz's indispensable `python-requests <http://docs.python-requests.org>`_ library handles the HTTP
 business. Usually, the latest version available at time of release is the minimum version required; at this writing,
 that version is 1.2.0, but any version >= 1.0.0 should work.
 
 requests-oauthlib
-^^^^^^^^^^^^^^^^^
+-----------------
 Used to implement OAuth. The latest version as of this writing is 0.3.3.
 
 IPython
-^^^^^^^
+-------
 The `IPython enhanced Python interpreter <http://ipython.org>`_ provides the fancy chrome used by
 :ref:`jirashell-label`. As with Requests, the latest version available at release time is required; at this writing,
 that's 0.13.
 
 filemagic
-^^^^^^^^^^^^
+---------
 This library handles content-type autodetection for things like image uploads. This will only work on a system that
 provides libmagic; Mac and Unix will almost always have it preinstalled, but Windows users will have to use Cygwin
 or compile it natively. If your system doesn't have libmagic, you'll have to manually specify the ``contentType``
 parameter on methods that take an image object, such as project and user avater creation.
 
 tlslite
-^^^^^^^
+-------
 This is a TLS implementation that handles key signing. It's used to help implement the OAuth handshaking.
 
 PyCrypto
-^^^^^^^^
+--------
 This is required for the RSA-SHA1 used by OAuth. Please note that it's **not** installed automatically, since it's
 a fairly cumbersome process in Windows. On Linux and OS X, a ``pip install pycrypto`` should do it.
 
@@ -402,13 +403,13 @@ Advanced
 ********
 
 Resource Objects and Properties
--------------------------------
+===============================
 
 The library distinguishes between two kinds of data in the JIRA REST API: *resources* and *properties*.
 
 A *resource* is a REST entity that represents the current state of something that the server owns; for example,
 the issue called "ABC-123" is a concept managed by JIRA which can be viewed as a resource obtainable at the URL
-*http://jira-server/rest/api/2/issue/ABC-123*. All resources have a *self link*: a root-level property called *self*
+*http://jira-server/rest/api/latest/issue/ABC-123*. All resources have a *self link*: a root-level property called *self*
 which contains the URL the resource originated from. In jira-python, resources are instances of the *Resource* object
 (or one of its subclasses) and can only be obtained from the server using the ``find()`` method. Resources may be
 connected to other resources: the issue *Resource* is connected to a user *Resource* through the ``assignee`` and
@@ -422,7 +423,7 @@ connected to other resources: the issue *Resource* is connected to a user *Resou
 
 A *properties object* is a collection of values returned by JIRA in response to some query from the REST API. Their
 structure is freeform and modeled as a Python dict. Client methods return this structure for calls that do not
-produce resources. For example, the properties returned from the URL *http://jira-server/rest/api/2/issue/createmeta*
+produce resources. For example, the properties returned from the URL *http://jira-server/rest/api/latest/issue/createmeta*
 are designed to inform users what fields (and what values for those fields) are required to successfully create
 issues in the server's projects. Since these properties are determined by JIRA's configuration, they are not resources.
 
