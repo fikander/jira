@@ -727,6 +727,22 @@ class User(Resource):
         return str(self.name) == str(other.name)
 
 
+class UserFromKey(Resource):
+
+    """A JIRA user."""
+
+    def __init__(self, options, session, raw=None):
+        Resource.__init__(self, 'user?key={0}', options, session)
+        if raw:
+            self._parse_raw(raw)
+
+    def __hash__(self):
+        return hash(str(self.name))
+
+    def __eq__(self, other):
+        return str(self.name) == str(other.name)
+
+
 class Version(Resource):
 
     """A version of a project."""

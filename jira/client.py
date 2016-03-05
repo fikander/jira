@@ -1806,6 +1806,24 @@ class JIRA(object):
         user.find(id, params=params)
         return user
 
+
+    def user_from_key(self, userkey, expand=None):
+        """
+        Get a User Resource from the server based on user key.
+        Since JIRA 6 user key is unique, while username can change
+        https://developer.atlassian.com/jiradev/latest-updates/developer-changes-for-older-jira-versions/preparing-for-jira-6-0/renamable-users-in-jira-6-0
+
+        :param key: key of the user to get
+        :param expand: extra information to fetch inside each resource
+        """
+        user = UserFromKey(self._options, self._session)
+        params = {}
+        if expand is not None:
+            params['expand'] = expand
+        user.find(userkey, params=params)
+        return user
+
+
     def search_assignable_users_for_projects(self, username, projectKeys, startAt=0, maxResults=50):
         """
         Get a list of user Resources that match the search string and can be assigned issues for projects.
