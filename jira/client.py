@@ -69,7 +69,7 @@ except ImportError:
 # JIRA specific resources
 from .resources import Resource, Issue, Comment, Project, Attachment, Component, Dashboard, Filter, Votes, Watchers, \
     Worklog, IssueLink, IssueLinkType, IssueType, Priority, Version, Role, Resolution, SecurityLevel, Status, User, \
-    CustomFieldOption, RemoteLink
+    UserFromKey, CustomFieldOption, RemoteLink
 # GreenHopper specific resources
 from .resources import GreenHopperResource, Board, Sprint
 from .resilientsession import ResilientSession, raise_on_error
