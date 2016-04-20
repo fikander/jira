@@ -34,6 +34,7 @@ import sys
 import datetime
 import calendar
 import hashlib
+import urllib
 from numbers import Number
 
 # noinspection PyUnresolvedReferences
@@ -1803,7 +1804,7 @@ class JIRA(object):
         params = {}
         if expand is not None:
             params['expand'] = expand
-        user.find(id, params=params)
+        user.find(urllib.pathname2url(id), params=params)
         return user
 
 
@@ -1820,7 +1821,7 @@ class JIRA(object):
         params = {}
         if expand is not None:
             params['expand'] = expand
-        user.find(userkey, params=params)
+        user.find(urllib.pathname2url(userkey), params=params)
         return user
 
 
